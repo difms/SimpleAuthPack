@@ -13,8 +13,8 @@ COPY . .
 RUN cp /var/www/html/.env.example /var/www/html/.env
 
 RUN composer install \
-    && chmod +x /var/www/html/wait-for-postgres.sh \
     && chown -R www-data:www-data /var/www/html
+RUN chmod +x /var/www/html/wait-for-postgres.sh
 
 EXPOSE 8000
 
