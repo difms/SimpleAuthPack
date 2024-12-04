@@ -19,7 +19,7 @@ services:
     depends_on:
       - db
     command: >
-      sh -c "./wait-for-postgres.sh &&
+      sh -c "/var/www/html/wait-for-postgres.sh &&
              php artisan migrate --seed &&
              php artisan test &&
              php artisan serve --host=0.0.0.0 --port=8000"
