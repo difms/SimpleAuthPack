@@ -4,7 +4,10 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     curl \ 
-    postgresql-client
+    postgresql-client \
+    libpq-dev  # Устанавливаем библиотеку для работы с PostgreSQL
+
+RUN docker-php-ext-install pdo pdo_pgsql
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
