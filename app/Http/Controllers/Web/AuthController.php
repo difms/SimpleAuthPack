@@ -52,7 +52,8 @@ class AuthController extends Controller
 
             $user = User::firstOrCreate(
                 ['email' => $googleUser->getEmail()],
-                ['password' => bcrypt(str()->random(16))]
+                ['password' => bcrypt(str()->random(16))],
+                ['google_id' => $googleUser->getId()],
             );
 
             Auth::login($user);
