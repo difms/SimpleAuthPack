@@ -8,13 +8,15 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
-COPY . .
+COPY . /var/www/html/
+
+RUN chmod +x /var/www/html/wait-for-postgres.sh
 
 RUN cp /var/www/html/.env.example /var/www/html/.env
 
 RUN composer install \
     && chown -R www-data:www-data /var/www/html
-RUN chmod +x /var/www/html/wait-for-postgres.sh
+
 
 EXPOSE 8000
 
