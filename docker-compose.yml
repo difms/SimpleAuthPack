@@ -11,7 +11,7 @@ services:
       - "8000:8000"
     environment:
       - DB_CONNECTION=pgsql
-      - DB_HOST=postgres
+      - DB_HOST=db 
       - DB_PORT=5432
       - DB_DATABASE=${DB_DATABASE}
       - DB_USERNAME=${DB_USERNAME}
@@ -23,6 +23,8 @@ services:
              php artisan migrate --seed &&
              php artisan test &&
              php artisan serve --host=0.0.0.0 --port=8000"
+    networks:
+      - app-network
 
   db:
     image: postgres:15
@@ -30,10 +32,14 @@ services:
       - POSTGRES_DB=${DB_DATABASE}
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    ports:
-      - "5436:5436"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
 
 volumes:
   db_data:
+
+networks:
+  app-network:
+    driver: bridge
